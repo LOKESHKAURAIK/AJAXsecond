@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>My AJAX</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+  <script>  
+var request;  
+function sendInfo()  
+{  
+var v=document.getElementById("t1").value;  
+var url="show?val="+v;  
+                                                    {% comment %} if the browser is old then we use XMLHttpRequest {% endcomment %}
+if(window.XMLHttpRequest){  
+request=new XMLHttpRequest();     
+}  
+else if(window.ActiveXObject){  
+request=new ActiveXObject("Microsoft.XMLHTTP");  
+}  
+                                                  {% comment %} for new browser we use ActiveXObject {% endcomment %}
+try  
+{  
+request.onreadystatechange=getInfo;  
+request.open("GET",url,true);  
+request.send();  
+}  
+catch(e)  
+{  
+alert("Unable to connect to server");  
+}  
+}  
+  
+function getInfo(){  
+if(request.readyState==4){  
+var val=request.responseText;  
+document.getElementById('loku').innerHTML=val;  
+}  
+}  
+  
+</script>  
+</head>
+{% comment %} <body>
+
+<div class="container">
+    <marquee><b><h1>This is AJAX</h1></b></marquee>  
+  <form name="vinform">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="t1" name="t1" placeholder="Enter name">
+    </div>
+    <button type="submit" class="btn btn-default" onClick="sendInfo()">Submit</button>
+  </form>
+</div>
+    <div id="loku"> </div>  
+</body> {% endcomment %}
+<body>  
+    <div class="container">
+    <marquee><h1>This is an example of ajax</h1></marquee>  
+<form name="vinform">  
+<div class="form-group">
+<label for="name">Name:</label>
+    <input type="number" name="t1" id="t1" class="form-control" onkeyup="sendInfo()">  
+</div>
+</form>  
+<div id="loku"> </div>  
+</div>
+</body>
+</html> 
